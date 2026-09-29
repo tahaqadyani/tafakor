@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خودسانسوری | چرا حرف‌هایمان را نمی‌زنیم؟</title>
+<meta name="description" content="ارائه‌ای درباره‌ی خودسانسوری: تعریف، دلایل، مثال‌ها، پیامدها و راه‌حل‌ها">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f0ede7; --bg2:#e8e4db; --card:#faf8f3;
+    --ink:#23211c; --muted:#6f6a5d; --line:#d9d4c8;
+    --red:#c31f3d; --red2:#e2426a; --dark:#22201b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+  ::selection{background:var(--red);color:#fff}
+  section[id]{scroll-margin-top:84px}
+  .wrap{max-width:1100px;margin:auto}
+
+  /* ===== progress bar ===== */
+  .progress{position:fixed;top:0;right:0;left:0;height:3px;z-index:80}
+  #bar{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--red2))}
+
+  /* ===== header ===== */
+  header{position:fixed;top:3px;right:0;left:0;z-index:70;background:rgba(240,237,231,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.65rem 1.2rem}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1rem;text-decoration:none;color:var(--ink)}
+  .brand .logo{width:38px;height:38px;border-radius:11px;background:var(--red);color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 8px 18px -8px rgba(195,31,61,.6)}
+  nav ul{display:flex;gap:.15rem;list-style:none}
+  nav a{text-decoration:none;color:var(--muted);font-weight:600;font-size:.88rem;padding:.45rem .85rem;border-radius:999px;transition:.25s}
+  nav a:hover{color:var(--ink);background:rgba(195,31,61,.08)}
+  nav a.active{color:#fff;background:var(--red)}
+  .burger{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font-size:1.1rem}
+
+  /* ===== hero ===== */
+  .hero{min-height:100svh;display:flex;flex-direction:column;position:relative;padding-top:74px;
+    background:
+      radial-gradient(900px 400px at 85% -10%, rgba(195,31,61,.06), transparent 60%),
+      radial-gradient(700px 380px at 10% 20%, rgba(35,33,28,.05), transparent 60%),
+      var(--bg);}
+  .hero-main{flex:1;display:grid;place-items:center;text-align:center;padding:3.5rem 1.2rem 1.5rem;position:relative}
+  .hero-main::before{content:"؟";position:absolute;top:2rem;left:50%;transform:translateX(-50%);font-size:clamp(16rem,38vw,30rem);font-weight:900;color:rgba(195,31,61,.05);line-height:1;pointer-events:none;z-index:0}
+  .hero-main > *{position:relative;z-index:1}
+  .kicker{display:inline-flex;align-items:center;gap:.55rem;background:#fff;border:1px solid var(--line);padding:.4rem 1.05rem;border-radius:999px;font-size:.82rem;font-weight:700;color:var(--muted);box-shadow:0 3px 12px rgba(0,0,0,.05)}
+  .kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(195,31,61,.4)}55%{box-shadow:0 0 0 7px rgba(195,31,61,0)}}
+  h1{font-size:clamp(1.65rem,4.4vw,3.2rem);font-weight:900;line-height:1.65;max-width:920px;margin:1.3rem auto .4rem}
+  h1 .q{color:var(--red)}
+  .rule{width:min(660px,82%);height:5px;margin:1.1rem auto 0;border-radius:99px;
+    background:linear-gradient(90deg,transparent,var(--red) 10%,var(--red) 90%,transparent)}
+  .hero .sub{max-width:660px;margin:1.5rem auto 0;color:var(--muted);font-size:clamp(.95rem,2vw,1.12rem);line-height:2.1}
+  .hero-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-weight:700;font-size:.95rem;padding:.75rem 1.6rem;border-radius:999px;transition:.3s}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 14px 28px -12px rgba(195,31,61,.6)}
+  .btn-red:hover{transform:translateY(-3px);background:#a81834}
+  .btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:#fff}
+  .btn-ghost:hover{border-color:var(--red);color:var(--red);transform:translateY(-3px)}
+  .people{display:flex;align-items:center;justify-content:center;gap:2.2rem;padding:0 1rem 1.6rem;flex-wrap:wrap}
+  .person{text-align:center}
+  .person .role{display:block;font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.03em}
+  .person .name{font-weight:800;font-size:1.02rem}
+  .person .sep{width:1px;height:38px;background:var(--line);align-self:center}
+  .wood{height:110px;border-top:2px solid rgba(70,45,20,.35);
+    background:
+      repeating-linear-gradient(90deg, rgba(60,35,15,.28) 0 2px, transparent 2px 132px),
+      repeating-linear-gradient(90deg, rgba(255,235,200,.09) 2px 66px, transparent 66px 132px),
+      linear-gradient(180deg,#cb9c68 0%,#b5814f 45%,#8f6238 100%);
+    box-shadow:inset 0 16px 28px -16px rgba(0,0,0,.65), inset 0 -10px 18px -10px rgba(0,0,0,.4)}
+
+  /* ===== sections ===== */
+  section.block{padding:5.5rem 1.2rem}
+  section.block:nth-of-type(even){background:var(--bg2)}
+  .sec-head{margin-bottom:2.8rem}
+  .slide-tag{display:inline-flex;align-items:center;gap:.45rem;font-size:.76rem;font-weight:800;color:var(--red);background:rgba(195,31,61,.08);border:1px solid rgba(195,31,61,.22);padding:.28rem .85rem;border-radius:999px}
+  .sec-head h2{font-size:clamp(1.45rem,3.4vw,2.25rem);font-weight:900;margin-top:1rem}
+  .sec-head .line{width:130px;height:4px;background:var(--red);border-radius:99px;margin-top:.85rem}
+  .sec-head .lead{color:var(--muted);max-width:640px;margin-top:1rem;line-height:2.1}
+
+  /* definition */
+  .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem}
+  .def{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:1.7rem 1.5rem;transition:.35s;position:relative;overflow:hidden}
+  .def:hover{transform:translateY(-6px);box-shadow:0 20px 44px -20px rgba(35,30,20,.35);border-color:rgba(195,31,61,.4)}
+  .def .ico{width:52px;height:52px;border-radius:15px;background:rgba(195,31,61,.1);display:grid;place-items:center;font-size:1.45rem;margin-bottom:1rem}
+  .def h3{font-size:1.06rem;font-weight:800;margin-bottom:.45rem}
+  .def p{color:var(--muted);font-size:.93rem;line-height:2}
+  .def b{color:var(--red)}
+
+  /* reason cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.1rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.4rem;position:relative;overflow:hidden;transition:.35s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 20px 44px -20px rgba(35,30,20,.35);border-color:rgba(195,31,61,.4)}
+  .card .num{position:absolute;top:-16px;left:10px;font-size:4.4rem;font-weight:900;color:rgba(195,31,61,.07);line-height:1}
+  .card .ico{width:46px;height:46px;border-radius:13px;background:rgba(195,31,61,.1);display:grid;place-items:center;font-size:1.3rem;margin-bottom:.85rem}
+  .card h3{font-size:1.02rem;font-weight:800;margin-bottom:.4rem}
+  .card p{color:var(--muted);font-size:.9rem;line-height:1.95}
+
+  /* examples */
+  .scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem}
+  .scene{background:var(--card);border:1px solid var(--line);border-right:5px solid var(--red);border-radius:16px;padding:1.5rem;transition:.35s}
+  .scene:hover{transform:translateY(-5px);box-shadow:0 18px 40px -18px rgba(35,30,20,.35)}
+  .scene .who{display:flex;align-items:center;gap:.7rem;font-weight:800;margin-bottom:.55rem}
+  .scene .who .em{width:44px;height:44px;border-radius:50%;background:rgba(195,31,61,.1);display:grid;place-items:center;font-size:1.3rem}
+  .scene p{color:var(--muted);font-size:.93rem;line-height:2}
+
+  /* effects */
+  .fx-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.9rem}
+  .fx{display:flex;align-items:flex-start;gap:.95rem;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:1.05rem 1.15rem;transition:.3s}
+  .fx:hover{border-color:rgba(195,31,61,.4);transform:translateY(-4px)}
+  .fx .em{flex:none;width:38px;height:38px;border-radius:50%;background:rgba(195,31,61,.1);display:grid;place-items:center;font-size:1.1rem}
+  .fx p{font-weight:600;font-size:.95rem;padding-top:.35rem}
+
+  /* solutions timeline */
+  .steps{position:relative;max-width:760px;margin:auto}
+  .steps::before{content:"";position:absolute;top:8px;bottom:8px;right:26px;width:3px;border-radius:99px;background:linear-gradient(180deg,var(--red),rgba(195,31,61,.12))}
+  .step{position:relative;padding:0 76px 2.1rem 0}
+  .step:last-child{padding-bottom:0}
+  .step .n{position:absolute;right:0;top:0;width:54px;height:54px;border-radius:16px;background:var(--red);color:#fff;font-weight:900;font-size:1.3rem;display:grid;place-items:center;box-shadow:0 12px 22px -8px rgba(195,31,61,.55)}
+  .step h3{font-weight:800;font-size:1.08rem;margin-bottom:.25rem}
+  .step p{color:var(--muted);font-size:.94rem;line-height:2}
+
+  /* conclusion */
+  .conclusion{background:
+      radial-gradient(700px 320px at 50% 0%, rgba(195,31,61,.16), transparent 65%),
+      var(--dark);
+    color:#efece5;padding:6rem 1.2rem;text-align:center}
+  .conclusion .slide-tag{color:var(--red2);background:rgba(226,66,106,.1);border-color:rgba(226,66,106,.3)}
+  .conclusion h2{font-size:clamp(1.45rem,3.2vw,2.2rem);font-weight:900;margin-top:1rem}
+  .conclusion .line{width:130px;height:4px;background:var(--red);border-radius:99px;margin:1rem auto 0}
+  .quotes{max-width:830px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1.7rem}
+  .quotes .q{font-size:clamp(1.02rem,2.3vw,1.35rem);font-weight:700;line-height:2.2;position:relative;padding:0 2.4rem}
+  .quotes .q::before{content:"«";position:absolute;right:0;top:-.4rem;font-size:2.2rem;color:var(--red2);font-weight:900}
+  .quotes .q::after{content:"»";position:absolute;left:0;bottom:-.6rem;font-size:2.2rem;color:var(--red2);font-weight:900}
+  .quotes .q.gold{color:#f4d9a8}
+  .thanks{margin-top:4.5rem}
+  .thanks .big{font-size:clamp(1.8rem,5vw,3rem);font-weight:900}
+  .thanks .rule{width:min(380px,70%)}
+  .thanks .who{color:#b9b3a5;font-size:.9rem;margin-top:1.4rem}
+  .thanks .who b{color:#efece5}
+
+  footer{position:relative}
+  footer .credit{background:#1b1915;color:#948e80;text-align:center;font-size:.8rem;padding:1rem;border-top:1px solid rgba(255,255,255,.06)}
+
+  /* back to top */
+  #toTop{position:fixed;bottom:22px;inset-inline-start:22px;width:47px;height:47px;border-radius:50%;border:none;background:var(--red);color:#fff;font-size:1.15rem;cursor:pointer;opacity:0;pointer-events:none;transition:.3s;box-shadow:0 14px 26px -10px rgba(195,31,61,.6);z-index:60}
+  #toTop.show{opacity:1;pointer-events:auto}
+  #toTop:hover{transform:translateY(-4px)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* responsive */
+  @media (max-width:840px){
+    nav ul{position:fixed;top:70px;right:12px;left:12px;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:16px;padding:.6rem;box-shadow:0 24px 50px -20px rgba(0,0,0,.3);display:none}
+    body.menu-open nav ul{display:flex}
+    nav a{display:block}
+    nav a.active{background:rgba(195,31,61,.08);color:var(--red)}
+    .burger{display:grid;place-items:center}
+    .step{padding:0 66px 1.8rem 0}
+    .step .n{width:46px;height:46px;font-size:1.1rem;border-radius:13px}
+    .steps::before{right:22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress"><span id="bar"></span></div>
+
+<header>
+  <div class="nav-inner">
+    <a class="brand" href="#hero"><span class="logo">خ</span><span>خودسانسوری</span></a>
+    <nav>
+      <ul id="menu">
+        <li><a href="#definition" class="active">خودسانسوری</a></li>
+        <li><a href="#reasons">دلایل</a></li>
+        <li><a href="#examples">مثال‌ها</a></li>
+        <li><a href="#effects">پیامدها</a></li>
+        <li><a href="#solutions">راه‌حل‌ها</a></li>
+        <li><a href="#conclusion">جمع‌بندی</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="باز کردن منو">☰</button>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO (اسلاید ۱) ================= -->
+  <section class="hero" id="hero">
+    <div class="hero-main">
+      <div>
+        <span class="kicker"><span class="dot"></span>ارائه‌ی کلاسی • موضوع: خودسانسوری</span>
+        <h1>چرا در بعضی اوقات، چیزهایی را که<br>در ذهن داریم مطرح <span class="q">نمی‌کنیم؟</span></h1>
+        <div class="rule"></div>
+        <p class="sub">گاهی قبل از آن‌که دیگران واکنشی نشان دهند، خودمان سکوت را انتخاب کرده‌ایم؛ به این پدیده «خودسانسوری» می‌گویند. در این ارائه با دلایل، مثال‌ها، پیامدها و راه‌حل‌های آن آشنا می‌شویم.</p>
+        <div class="hero-actions">
+          <a class="btn btn-red" href="#definition">شروع مطالعه ↓</a>
+          <a class="btn btn-ghost" href="#solutions">رفتن به راه‌حل‌ها</a>
+        </div>
+      </div>
+    </div>
+    <div class="people">
+      <div class="person"><span class="role">ارائه‌دهنده</span><span class="name">طه قدیانی</span></div>
+      <div class="sep"></div>
+      <div class="person"><span class="role">استاد</span><span class="name">علمی</span></div>
+    </div>
+    <div class="wood"></div>
+  </section>
+
+  <!-- ================= تعریف (اسلاید ۲) ================= -->
+  <section class="block" id="definition">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="slide-tag">اسلاید ۲</span>
+        <h2>خودسانسوری چیست؟</h2>
+        <div class="line"></div>
+      </div>
+      <div class="defs">
+        <div class="def reveal"><div class="ico">💬</div><h3>سکوتِ آشنا</h3><p>همه‌ی ما در موقعیت‌هایی بوده‌ایم که برای گفتنِ چیزی، سکوت کرده‌ایم.</p></div>
+        <div class="def reveal"><div class="ico">🏷️</div><h3>نام این پدیده</h3><p>به این پدیده <b>«خودسانسوری»</b> می‌گویند.</p></div>
+        <div class="def reveal"><div class="ico">🎭</div><h3>تعریف ساده</h3><p>خودسانسوری یعنی خودمان، قبل از دیگران، حرف‌ها و افکارمان را فیلتر کنیم.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= دلایل (اسلاید ۳ و ۴) ================= -->
+  <section class="block" id="reasons">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="slide-tag">اسلاید ۳ و ۴</span>
+        <h2>دلایل خودسانسوری</h2>
+        <div class="line"></div>
+        <p class="lead">چرا از حرف زدنِ صادقانه پرهیز می‌کنیم؟ این ترس‌ها و عادت‌ها، سکوتِ ما را شکل می‌دهند:</p>
+      </div>
+      <div class="grid">
+        <div class="card reveal"><span class="num">۱</span><div class="ico">😨</div><h3>ترس از قضاوت شدن</h3><p>«دیگران چه فکری درباره‌ی من می‌کنند؟»</p></div>
+        <div class="card reveal"><span class="num">۲</span><div class="ico">😅</div><h3>ترس از مسخره شدن</h3><p>نگرانی از اینکه حرفمان خنده‌دار به نظر برسد.</p></div>
+        <div class="card reveal"><span class="num">۳</span><div class="ico">❌</div><h3>ترس از اشتباه کردن</h3><p>اگر اشتباه بگوییم، فکر می‌کنیم ارزشمان کم می‌شود.</p></div>
+        <div class="card reveal"><span class="num">۴</span><div class="ico">🚪</div><h3>ترس از طرد شدن</h3><p>نگرانی از شنیدنِ «جدا شو» و «دوستت ندارم».</p></div>
+        <div class="card reveal"><span class="num">۵</span><div class="ico">📉</div><h3>کم بودن اعتماد به نفس</h3><p>«شاید حرف من ارزش نداشته باشد.»</p></div>
+        <div class="card reveal"><span class="num">۶</span><div class="ico">🩹</div><h3>تجربه‌های تلخ گذشته</h3><p>حرفی که قبلاً با تمسخر یا بی‌توجهی مواجه شده است.</p></div>
+        <div class="card reveal"><span class="num">۷</span><div class="ico">🧍</div><h3>همرنگی با جمع</h3><p>ترجیح می‌دهیم مثل بقیه باشیم و نظرِ متفاوت بیان نکنیم.</p></div>
+        <div class="card reveal"><span class="num">۸</span><div class="ico">🎯</div><h3>کمال‌گرایی</h3><p>اگر مطمئن نباشیم حرفمان صددرصد درست است، اصلاً بیانش نمی‌کنیم.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= مثال‌ها (اسلاید ۵) ================= -->
+  <section class="block" id="examples">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="slide-tag">اسلاید ۵</span>
+        <h2>مثال‌هایی از خودسانسوری</h2>
+        <div class="line"></div>
+      </div>
+      <div class="scenes">
+        <div class="scene reveal"><div class="who"><span class="em">🎓</span>دانشجو</div><p>سؤالش را در کلاس نمی‌پرسد، چون فکر می‌کند سؤالش احمقانه است.</p></div>
+        <div class="scene reveal"><div class="who"><span class="em">💬</span>روابط عاطفی</div><p>احساس واقعی‌اش را نمی‌گوید، چون می‌ترسد دلِ طرف مقابل را بشکند.</p></div>
+        <div class="scene reveal"><div class="who"><span class="em">💼</span>محل کار</div><p>ایده‌اش را در جلسه نمی‌گوید، چون فکر می‌کند کسی گوش نمی‌دهد.</p></div>
+        <div class="scene reveal"><div class="who"><span class="em">🤝</span>دوستان و خانواده</div><p>نظر واقعی‌اش را درباره‌ی رابطه‌ی دوستش نمی‌گوید، چون نمی‌خواهد ناراحتش کند.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= پیامدها (اسلاید ۶) ================= -->
+  <section class="block" id="effects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="slide-tag">اسلاید ۶</span>
+        <h2>پیامدهای خودسانسوری</h2>
+        <div class="line"></div>
+        <p class="lead">اگر اجازه دهیم خودسانسوری ادامه پیدا کند، این آسیب‌ها گریبان‌گیرمان می‌شوند:</p>
+      </div>
+      <div class="fx-list">
+        <div class="fx reveal"><span class="em">😞</span><p>درون‌ریزی، ناراحتی و استرس انباشته</p></div>
+        <div class="fx reveal"><span class="em">📚</span><p>از دست رفتن فرصت‌های رشد و یادگیری</p></div>
+        <div class="fx reveal"><span class="em">🌀</span><p>ایجاد سوءتفاهم میان افراد</p></div>
+        <div class="fx reveal"><span class="em">🗣️</span><p>ضعیف شدن مهارت‌های ارتباطی</p></div>
+        <div class="fx reveal"><span class="em">🚧</span><p>ناکام ماندن در رسیدن به خواسته‌ها</p></div>
+        <div class="fx reveal"><span class="em">🎨</span><p>کم‌رنگ شدن خلاقیت و افکار</p></div>
+        <div class="fx reveal"><span class="em">💭</span><p>کاهش اعتماد به نفس</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= راه‌حل‌ها (اسلاید ۷) ================= -->
+  <section class="block" id="solutions">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="slide-tag">اسلاید ۷</span>
+        <h2>راه‌حل‌های رفع خودسانسوری</h2>
+        <div class="line"></div>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><span class="n">۱</span><h3>تقویت خودباوری و اعتماد به نفس</h3><p>پایه‌ی رهایی از سکوت، باور به ارزشِ حرف‌های خودمان است.</p></div>
+        <div class="step reveal"><span class="n">۲</span><h3>پذیرش اشتباه به عنوان بخشی از یادگیری</h3><p>اشتباه نشانه‌ی کم‌ارزشی نیست؛ بخشی از مسیر رشد است.</p></div>
+        <div class="step reveal"><span class="n">۳</span><h3>تمرین بیان نظر در محیط‌های امن</h3><p>اول نزد خانواده یا دوستان نزدیک، نظر دادن را تمرین کنیم.</p></div>
+        <div class="step reveal"><span class="n">۴</span><h3>گفتگوی درونی مثبت با خود</h3><p>به جای خودانتقادی، با خودمان مهربان و تشویق‌کننده باشیم.</p></div>
+        <div class="step reveal"><span class="n">۵</span><h3>رها شدن از کمال‌گرایی</h3><p>لازم نیست صددرصد مطمئن باشیم تا حرفمان را بزنیم.</p></div>
+        <div class="step reveal"><span class="n">۶</span><h3>شروع با جمله‌های کوچک</h3><p>با عبارت‌های ساده شروع کنیم: «من فکر می‌کنم...»</p></div>
+        <div class="step reveal"><span class="n">۷</span><h3>نوشتن افکار</h3><p>افکارمان را یادداشت کنیم تا بیانشان برایمان آسان‌تر شود.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= جمع‌بندی (اسلاید ۸) ================= -->
+  <section class="conclusion" id="conclusion">
+    <div class="wrap">
+      <span class="slide-tag">اسلاید ۸</span>
+      <h2>جمع‌بندی</h2>
+      <div class="line"></div>
+      <div class="quotes">
+        <p class="q reveal">خودباوری و اعتماد به نفس، کلید رهایی از سانسوریِ ذهن است؛ سانسوریِ ذهن، نابودکننده‌ی خلاقیت است.</p>
+        <p class="q reveal">حرف‌های ما حق دارند شنیده شوند و احترام خاصی می‌طلبند.</p>
+        <p class="q gold reveal">افکارمان را با ادب بگوییم تا درهای ذهن ما باز بماند.</p>
+      </div>
+      <div class="thanks reveal">
+        <p class="big">با تشکر از توجه شما 🌹</p>
+        <div class="rule"></div>
+        <p class="who">ارائه‌دهنده: <b>طه قدیانی</b> &nbsp;|&nbsp; استاد: <b>علمی</b></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wood"></div>
+  <div class="credit">طراحی‌شده بر پایه‌ی ارائه‌ی کلاسی «خودسانسوری» — طه قدیانی</div>
+</footer>
+
+<button id="toTop" aria-label="بازگشت به بالا">↑</button>
+
+<script>
+  // نوار پیشرفت + دکمه بازگشت به بالا
+  const bar=document.getElementById('bar'),toTop=document.getElementById('toTop');
+  addEventListener('scroll',()=>{
+    const h=document.documentElement;
+    bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+    toTop.classList.toggle('show',h.scrollTop>600);
+  },{passive:true});
+  toTop.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+  // منوی موبایل
+  const burger=document.getElementById('burger');
+  burger.onclick=()=>document.body.classList.toggle('menu-open');
+  document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.body.classList.remove('menu-open'));
+
+  // انیمیشن ورود عناصر
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+  }),{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.querySelectorAll('.grid,.defs,.scenes,.fx-list,.steps').forEach(g=>
+    [...g.children].forEach((c,i)=>c.style.transitionDelay=(i*80)+'ms'));
+
+  // هایلایت لینک فعال منو
+  const links=[...document.querySelectorAll('#menu a')];
+  const so=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting)links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));
+  }),{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s=>so.observe(s));
+</script>
+</body>
+</html>
